@@ -3,27 +3,36 @@
 @tailwind utilities;
 
 :root {
-  --background: #fafafa;
-  --foreground: #171717;
+  --bodyBgColor: #fafafa;
+  --bodyFgColor: #171717;
+  --componentBgColor: #ffffff;
+  --componentFgColor: #333236;
 
-  --white: #ffffff;
+  --borderColor: #9fa6b2;
+
   --orange: #ff8c00;
-  --gray: #9fa6b2;
+  --disabled: #9fa6b2;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #1e1e1e;
-    --foreground: #ededed;
+    --bodyBgColor: #1e1e1e;
+    --bodyFgColor: #ededed;
+    --componentBgColor: #171717;
+    --componentFgColor: #ffffff;
+
+    --borderColor: #333236;
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  background: var(--bodyBgColor);
+  color: var(--bodyFgColor);
 }
 
-button {
-  color: var(--white);
+button,
+input {
+  background: var(--componentBgColor);
+  color: var(--componentFgColor);
   font-weight: 600;
 }
