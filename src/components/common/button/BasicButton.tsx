@@ -19,7 +19,7 @@ const BasicButton = ({ color, size, disabled, children, onClick }: Props) => {
 
   return (
     <button
-      className={`rounded-md ${colors[color]} ${sizes[size]}`}
+      className={`${colors[color]} ${sizes[size]}`}
       disabled={disabled}
       onClick={onClick}
     >

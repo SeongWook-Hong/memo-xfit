@@ -13,6 +13,7 @@ export default {
       colors: {
         borderColor: "var(--borderColor)",
         orange: "var(--orange)",
+        red: "var(--red)",
         disabled: "var(--disabled)",
       },
     },
