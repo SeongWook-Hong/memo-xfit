@@ -7,15 +7,14 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./.storybook/**/*.{js,ts,jsx,tsx}",
   ],
-  safelist: ["bg-gray", "bg-orange", "bg-white"],
+  safelist: ["borderColor", "bg-orange", "bg-disabled"],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        borderColor: "var(--borderColor)",
         orange: "var(--orange)",
-        gray: "var(--gray)",
-        white: "var(--white)",
+        red: "var(--red)",
+        disabled: "var(--disabled)",
       },
     },
   },
