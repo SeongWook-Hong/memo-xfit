@@ -2,7 +2,8 @@ import { InputHTMLAttributes } from "react";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  isError: boolean;
+  isError?: boolean;
+  errorMsg?: string;
 }
 const BasicInput = ({
   label,
@@ -10,6 +11,7 @@ const BasicInput = ({
   type,
   placeholder,
   isError,
+  errorMsg,
   onChange,
 }: Props) => {
   return (
@@ -22,6 +24,9 @@ const BasicInput = ({
         placeholder={placeholder}
         onChange={onChange}
       />
+      <div className="text-xs h-4">
+        {isError ? <span className="h-3 text-red">{errorMsg}</span> : <></>}
+      </div>
     </div>
   );
 };
