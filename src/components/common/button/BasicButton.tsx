@@ -5,21 +5,21 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   size: "sm" | "md" | "lg";
 }
 const BasicButton = ({ color, size, disabled, children, onClick }: Props) => {
-  const sizes = {
-    sm: "py-2 text-sm min-w-32 md:min-w-24",
-    md: "py-3 text-lg min-w-72 w-full max-w-[520px]",
-    lg: "py-5 text-lg min-w-72 w-full max-w-[544px]",
-  };
   const colors = {
-    orange: `${disabled ? "bg-gray" : `bg-${color}`}`,
-    white: `border-[1px] bg-${color} border-gray ${
-      size === "lg" ? "text-black" : "text-orange"
-    } `,
+    orange: `${disabled ? "bg-disabled" : `bg-${color}`}`,
+    white: `border-[1px] border-borderColor`,
+  };
+  const sizes = {
+    sm: `py-2 text-sm min-w-32 md:min-w-24 ${
+      color === "white" ? "text-orange" : "text-white"
+    }`,
+    md: "py-3 text-lg min-w-72 w-full max-w-[520px] text-white",
+    lg: "py-5 text-lg min-w-72 w-full max-w-[544px]",
   };
 
   return (
     <button
-      className={`rounded-md ${colors[color]} ${sizes[size]}`}
+      className={`${colors[color]} ${sizes[size]}`}
       disabled={disabled}
       onClick={onClick}
     >
