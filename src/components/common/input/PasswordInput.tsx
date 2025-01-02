@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { InputHTMLAttributes, useState } from "react";
 import BasicInput from "@/components/common/input/BasicInput";
 import Visible from "@/assets/icons/visible.svg";
 import Unvisible from "@/assets/icons/unvisible.svg";
+import { UseFormRegisterReturn } from "react-hook-form";
 
-interface Props {
-  isError: boolean;
-  errorMsg: string;
-  onChange: () => void;
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  isError?: boolean;
+  errorMsg?: string;
+  register?: UseFormRegisterReturn;
 }
-const PasswordInput = ({ isError, errorMsg, onChange }: Props) => {
+const PasswordInput: React.FC<Props> = ({
+  register,
+  isError,
+  errorMsg,
+  ...props
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const handleIconClick = () => {
     setIsVisible((prev) => !prev);
@@ -18,9 +25,11 @@ const PasswordInput = ({ isError, errorMsg, onChange }: Props) => {
     <BasicInput
       label="비밀번호"
       type={isVisible ? "text" : "password"}
+      placeholder="**********"
       isError={isError}
       errorMsg={errorMsg}
-      onChange={onChange}
+      {...register}
+      {...props}
     >
       {isVisible ? (
         <Unvisible
