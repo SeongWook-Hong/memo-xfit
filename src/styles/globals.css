@@ -42,6 +42,7 @@ input {
 input {
   border: 1px solid var(--borderColor);
   &:focus {
-    outline: solid 1px var(--orange);
+    border: solid 1px var(--orange);
+    outline: none;
   }
 }
