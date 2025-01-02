@@ -3,25 +3,14 @@ import BasicInput from "@/components/common/input/BasicInput";
 import Visible from "@/assets/icons/visible.svg";
 import Unvisible from "@/assets/icons/unvisible.svg";
 
-interface Props {
-  isError: boolean;
-  errorMsg: string;
-  onChange: () => void;
-}
-const PasswordInput = ({ isError, errorMsg, onChange }: Props) => {
+const PasswordInput = () => {
   const [isVisible, setIsVisible] = useState(false);
   const handleIconClick = () => {
     setIsVisible((prev) => !prev);
   };
 
   return (
-    <BasicInput
-      label="비밀번호"
-      type={isVisible ? "text" : "password"}
-      isError={isError}
-      errorMsg={errorMsg}
-      onChange={onChange}
-    >
+    <BasicInput label="비밀번호" type={isVisible ? "text" : "password"}>
       {isVisible ? (
         <Unvisible
           className="absolute top-11 right-4 cursor-pointer"
