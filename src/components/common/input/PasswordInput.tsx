@@ -11,6 +11,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   register?: UseFormRegisterReturn;
 }
 const PasswordInput: React.FC<Props> = ({
+  label,
   register,
   isError,
   errorMsg,
@@ -23,7 +24,7 @@ const PasswordInput: React.FC<Props> = ({
 
   return (
     <BasicInput
-      label="비밀번호"
+      label={label}
       type={isVisible ? "text" : "password"}
       placeholder="**********"
       isError={isError}
