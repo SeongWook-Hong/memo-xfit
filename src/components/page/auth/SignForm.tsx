@@ -4,10 +4,14 @@ import PasswordInput from "@/components/common/input/PasswordInput";
 import { preventEnter } from "@/utils/preventEnter";
 import { useForm } from "react-hook-form";
 
-const LoginForm = () => {
+interface Props {
+  sign: "in" | "up";
+}
+const SignForm = ({ sign }: Props) => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isSubmitting, errors },
   } = useForm();
   return (
@@ -34,7 +38,22 @@ const LoginForm = () => {
           },
         })}
       />
+      {sign === "up" ? (
+        <BasicInput
+          label="닉네임"
+          type="text"
+          placeholder="ex) 홍길동"
+          isError={!!errors?.nickname}
+          errorMsg={"" + errors.nickname?.message}
+          {...register("nickname", {
+            required: "닉네임은 필수 입력입니다.",
+          })}
+        />
+      ) : (
+        <></>
+      )}
       <PasswordInput
+        label="비밀번호"
         isError={!!errors?.password}
         errorMsg={"" + errors.password?.message}
         {...register("password", {
@@ -46,9 +65,23 @@ const LoginForm = () => {
           },
         })}
       />
+      {sign === "up" ? (
+        <PasswordInput
+          label="비밀번호 확인"
+          isError={!!errors?.passwordCheck}
+          errorMsg={"" + errors.passwordCheck?.message}
+          {...register("passwordCheck", {
+            required: "비밀번호 확인은 필수 입력입니다.",
+            validate: (value) =>
+              value === watch("password") || "비밀번호가 일치하지 않습니다.",
+          })}
+        />
+      ) : (
+        <></>
+      )}
 
-      <SignButton sign="in" isDisabled={isSubmitting} />
+      <SignButton sign={sign} isDisabled={isSubmitting} />
     </form>
   );
 };
-export default LoginForm;
+export default SignForm;
