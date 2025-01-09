@@ -10,14 +10,31 @@ export default async function handler(
 
   switch (req.method) {
     case "POST":
-      const newUser = await User.create(req.body);
-      res.send(newUser);
+      try {
+        const newUser = await User.create(req.body);
+        res.send(newUser);
+      } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+      }
       break;
 
     case "GET":
-      const user = await User.findOne(req.query);
-      if (!user) return res.status(404).send("User Not Found");
-      res.send(user);
+      try {
+        const user = await User.findOne(req.query);
+        if (user) {
+          return res.status(200).json({
+            isUsed: true,
+            message:
+              "이미 가입된 email 입니다. 다른 email로 가입을 진행해 주세요.",
+          });
+        }
+        res.status(200).json({
+          isUsed: false,
+          message: "사용 가능한 email 입니다.",
+        });
+      } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+      }
       break;
 
     default:
