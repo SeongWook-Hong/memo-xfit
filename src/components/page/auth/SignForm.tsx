@@ -2,12 +2,15 @@ import SignButton from "@/components/common/button/SignButton";
 import BasicInput from "@/components/common/input/BasicInput";
 import PasswordInput from "@/components/common/input/PasswordInput";
 import { preventEnter } from "@/utils/preventEnter";
+import { RefObject } from "react";
 import { useForm } from "react-hook-form";
 
 interface Props {
   sign: "in" | "up";
+  formRef: RefObject<{ email: string; nickname: string; password: string }>;
+  onSubmit: () => void;
 }
-const SignForm = ({ sign }: Props) => {
+const SignForm = ({ sign, formRef, onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
@@ -18,9 +21,15 @@ const SignForm = ({ sign }: Props) => {
     <form
       noValidate
       className="flex flex-col gap-3"
-      onSubmit={handleSubmit(async (data) => {
-        await new Promise((r) => setTimeout(r, 1000));
-        alert(JSON.stringify(data));
+      onSubmit={handleSubmit((data) => {
+        if (formRef.current) {
+          Object.assign(formRef.current, {
+            email: data.email,
+            nickname: data.nickname || "",
+            password: data.password,
+          });
+          onSubmit();
+        }
       })}
       onKeyDown={(e) => preventEnter(e)}
     >
