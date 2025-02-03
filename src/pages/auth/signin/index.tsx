@@ -1,19 +1,21 @@
 import Link from "next/link";
 import SignForm from "@/components/page/auth/SignForm";
 import { useRef } from "react";
-import getSignin from "@/hooks/postSignin";
+import postSignin from "@/hooks/postSignin";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const Signin = () => {
   const formRef = useRef({ email: "", nickname: "", password: "" });
+  const { setIsSignin } = useAuthStore();
 
   const handleSubmit = async () => {
-    const { data, isSuccess, message } = await getSignin({
+    const { data, isSuccess, message } = await postSignin({
       ...formRef.current,
     });
     if (isSuccess === false) {
       alert(message); // 로그인 실패
     } else {
-      console.log(data); // temp
+      setIsSignin(data.nickname);
     }
   };
   return (
