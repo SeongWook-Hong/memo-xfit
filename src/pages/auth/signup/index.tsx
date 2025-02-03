@@ -15,10 +15,13 @@ const Signup = () => {
     if (!isUsed) {
       const { data, status } = await postNewUser({ ...formRef.current });
 
-      if (status === 200) router.replace("/auth/signin");
-      else alert(data.message);
+      if (status === 201) {
+        router.replace("/auth/signin");
+        return;
+      }
+      alert(data.message); // server Error
     } else {
-      alert(message);
+      alert(message); // 이미 사용중인 email
     }
   };
   return (

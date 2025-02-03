@@ -25,12 +25,12 @@ export default async function handler(
           return res.status(200).json({
             isUsed: true,
             message:
-              "이미 가입된 email 입니다. 다른 email로 가입을 진행해 주세요.",
+              "이미 가입된 email입니다. 다른 email로 가입을 진행해 주세요.",
           });
         }
-        res.status(200).json({
+        res.status(201).json({
           isUsed: false,
-          message: "사용 가능한 email 입니다.",
+          message: "사용 가능한 email입니다.",
         });
       } catch (error) {
         res.status(500).json({ message: "Server error", error });
