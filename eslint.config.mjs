@@ -14,6 +14,8 @@ const eslintConfig = [
   {
     rules: {
       "import/no-anonymous-default-export": "off",
+      "no-var": "off",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 ];
