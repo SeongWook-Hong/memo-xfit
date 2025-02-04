@@ -1,21 +1,35 @@
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import Link from "next/link";
-import SignForm from "@/components/page/auth/SignForm";
 import { useRef } from "react";
-import postSignin from "@/hooks/postSignin";
 import { useAuthStore } from "@/store/useAuthStore";
+import SignForm from "@/components/page/auth/SignForm";
+import postSignin from "@/hooks/postSignin";
+import { authRedirect } from "@/utils/authRedirect";
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return authRedirect(context);
+};
 
 const Signin = () => {
+  const router = useRouter();
   const formRef = useRef({ email: "", nickname: "", password: "" });
-  const { setIsSignin } = useAuthStore();
+  const { setSignin } = useAuthStore();
 
   const handleSubmit = async () => {
-    const { data, isSuccess, message } = await postSignin({
+    const {
+      data: user,
+      isSuccess,
+      message,
+    } = await postSignin({
       ...formRef.current,
     });
     if (isSuccess === false) {
       alert(message); // 로그인 실패
     } else {
-      setIsSignin(data.nickname);
+      setSignin(user);
+      router.replace("/");
+      return;
     }
   };
   return (
