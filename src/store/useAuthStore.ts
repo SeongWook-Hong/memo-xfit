@@ -3,12 +3,12 @@ import { deleteCookie } from "cookies-next";
 interface AuthState {
   isSignin: boolean;
   nickName: string | undefined;
-  setIsSignin: (nickname?: string) => void;
+  setSignin: (nickname?: string) => void;
 }
 export const useAuthStore = create<AuthState>((set) => ({
   isSignin: false,
   nickName: undefined,
-  setIsSignin: (nickname?: string) => {
+  setSignin: (nickname?: string) => {
     if (nickname) {
       set({ isSignin: true, nickName: nickname });
     } else {
