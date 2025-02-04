@@ -36,7 +36,7 @@ export default async function handler(
           "Set-Cookie",
           `loginToken=${token}; Path=/; Max-Age=3600 SameSite=Strict`
         );
-        res.status(201).send({ data: userInfo });
+        res.status(201).send({ data: userInfo.nickname });
       } catch (error) {
         res.status(500).json({ message: "Server error", error });
       }
