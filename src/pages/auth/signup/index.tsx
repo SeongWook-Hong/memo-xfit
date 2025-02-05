@@ -8,7 +8,7 @@ import postNewUser from "@/hooks/postNewUser";
 import { authRedirect } from "@/utils/authRedirect";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  return authRedirect(context);
+  return await authRedirect(context);
 };
 
 const Signup = () => {

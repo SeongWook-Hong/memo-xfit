@@ -1,8 +1,11 @@
 import { GetServerSidePropsContext } from "next";
 import { getCookie } from "cookies-next";
 
-export const authRedirect = (context: GetServerSidePropsContext) => {
-  const token = getCookie("loginToken", { req: context.req, res: context.res });
+export const authRedirect = async (context: GetServerSidePropsContext) => {
+  const token = await getCookie("loginToken", {
+    req: context.req,
+    res: context.res,
+  });
 
   if (token) {
     return {
