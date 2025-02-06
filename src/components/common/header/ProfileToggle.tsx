@@ -1,7 +1,10 @@
-const ProfileToggle = () => {
+interface Props {
+  isOpen: boolean;
+}
+const ProfileToggle = ({ isOpen }: Props) => {
   return (
     <div>
-      {true && (
+      {isOpen && (
         <div className="absolute top-8 right-0 rounded-md shadow-md flex flex-col text-base bg-[--componentBgColor]">
           <button
             className="p-2 hover:bg-[--orange]"

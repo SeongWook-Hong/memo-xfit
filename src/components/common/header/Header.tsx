@@ -2,11 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import profilePic from "@/assets/images/basic-profile.png";
 import ProfileToggle from "@/components/common/header/ProfileToggle";
+import { useState } from "react";
 
 interface Props {
   nickname: string | undefined;
 }
 const Header = ({ nickname }: Props) => {
+  const [profileMenu, setProfileMenu] = useState(false);
+  const handleClickProfile = () => {
+    setProfileMenu(!profileMenu);
+  };
   return (
     <>
       <div className="flex items-center justify-between h-16 bg-[--componentBgColor] px-4">
@@ -14,7 +19,10 @@ const Header = ({ nickname }: Props) => {
         <Link href="/">MEMO-XFIT</Link>
         <div>
           {nickname ? (
-            <div className="relative flex items-center">
+            <div
+              className="relative flex items-center"
+              onClick={handleClickProfile}
+            >
               <Image
                 src={profilePic}
                 alt="Default Profile"
@@ -22,7 +30,7 @@ const Header = ({ nickname }: Props) => {
                 height={32}
               />
               <span className="text-base ml-3">{nickname}</span>
-              <ProfileToggle />
+              <ProfileToggle isOpen={profileMenu} />
             </div>
           ) : (
             <span className="flex text-sm gap-3">
