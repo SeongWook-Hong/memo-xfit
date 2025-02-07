@@ -3,7 +3,7 @@ import Link from "next/link";
 import profilePic from "@/assets/images/basic-profile.png";
 import ProfileToggle from "@/components/common/header/ProfileToggle";
 import { useRef, useState } from "react";
-import useOutsideClick from "@/hooks/useClickOutside";
+import useClickOutside from "@/hooks/useClickOutside";
 
 interface Props {
   nickname: string | undefined;
@@ -16,7 +16,7 @@ const Header = ({ nickname }: Props) => {
     setProfileMenu(!profileMenu);
   };
 
-  useOutsideClick(profileMenuRef, () => setProfileMenu(false));
+  useClickOutside(profileMenuRef, () => setProfileMenu(false));
   return (
     <>
       <div className="flex items-center justify-between h-16 bg-[--componentBgColor] px-4">
