@@ -2,16 +2,21 @@ import Image from "next/image";
 import Link from "next/link";
 import profilePic from "@/assets/images/basic-profile.png";
 import ProfileToggle from "@/components/common/header/ProfileToggle";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import useOutsideClick from "@/hooks/useClickOutside";
 
 interface Props {
   nickname: string | undefined;
 }
 const Header = ({ nickname }: Props) => {
   const [profileMenu, setProfileMenu] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+
   const handleClickProfile = () => {
     setProfileMenu(!profileMenu);
   };
+
+  useOutsideClick(profileMenuRef, () => setProfileMenu(false));
   return (
     <>
       <div className="flex items-center justify-between h-16 bg-[--componentBgColor] px-4">
@@ -20,6 +25,7 @@ const Header = ({ nickname }: Props) => {
         <div>
           {nickname ? (
             <div
+              ref={profileMenuRef}
               className="relative flex items-center"
               onClick={handleClickProfile}
             >
