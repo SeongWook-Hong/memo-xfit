@@ -1,9 +1,15 @@
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 import SignForm from "@/components/page/auth/SignForm";
 import isUsedEmail from "@/hooks/isUsedEmail";
 import postNewUser from "@/hooks/postNewUser";
+import { authRedirect } from "@/utils/authRedirect";
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return await authRedirect(context);
+};
 
 const Signup = () => {
   const router = useRouter();
@@ -16,6 +22,7 @@ const Signup = () => {
       const { data, status } = await postNewUser({ ...formRef.current });
 
       if (status === 201) {
+        alert(data + "님 환영합니다! 로그인을 진행해주세요.");
         router.replace("/auth/signin");
         return;
       }
@@ -27,6 +34,9 @@ const Signup = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="mx-auto flex flex-col w-[520px] p-3 gap-3">
+        <Link href="/" className="mx-auto text-6xl pb-7">
+          MEMO-XFIT
+        </Link>
         <SignForm sign="up" formRef={formRef} onSubmit={handleSubmit} />
         <span className="text-center">
           이미 회원이신가요?{" "}

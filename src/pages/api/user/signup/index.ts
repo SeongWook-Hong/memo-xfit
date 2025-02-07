@@ -12,7 +12,7 @@ export default async function handler(
     case "POST":
       try {
         const newUser = await User.create(req.body);
-        res.send(newUser);
+        res.status(201).send(newUser.nickname);
       } catch (error) {
         res.status(500).json({ message: "Server error", error });
       }
@@ -28,7 +28,7 @@ export default async function handler(
               "이미 가입된 email입니다. 다른 email로 가입을 진행해 주세요.",
           });
         }
-        res.status(201).json({
+        res.status(200).json({
           isUsed: false,
           message: "사용 가능한 email입니다.",
         });
