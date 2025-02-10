@@ -1,10 +1,8 @@
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import { useRef } from "react";
-import { useAuthStore } from "@/store/useAuthStore";
 import SignForm from "@/components/page/auth/SignForm";
-import postSignin from "@/hooks/postSignin";
+import { usePostSignin } from "@/hooks/useAuth";
 import { authRedirect } from "@/lib/authRedirect";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -12,25 +10,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const Signin = () => {
-  const router = useRouter();
   const formRef = useRef({ email: "", nickname: "", password: "" });
-  const { setSignin } = useAuthStore();
+  const { mutate: signin } = usePostSignin();
 
-  const handleSubmit = async () => {
-    const {
-      data: user,
-      isSuccess,
-      message,
-    } = await postSignin({
-      ...formRef.current,
-    });
-    if (isSuccess === false) {
-      alert(message); // 로그인 실패
-    } else {
-      setSignin(user);
-      router.replace("/");
-      return;
-    }
+  const handleSubmit = () => {
+    signin({ ...formRef.current });
   };
   return (
     <div className="flex items-center justify-center min-h-screen">
