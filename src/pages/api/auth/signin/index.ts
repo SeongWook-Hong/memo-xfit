@@ -42,6 +42,11 @@ export default async function handler(
       }
       break;
 
+    // case "GET":
+    //   try {
+    //   } catch (error) {}
+    //   break;
+
     default:
       res.status(405).json({ message: "Method Not Allowed" });
       break;
