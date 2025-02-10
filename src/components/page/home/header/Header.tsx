@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import profilePic from "@/assets/images/basic-profile.png";
-import ProfileToggle from "@/components/common/header/ProfileToggle";
+import ProfileToggle from "@/components/page/home/header/ProfileToggle";
 import { useRef, useState } from "react";
 import useClickOutside from "@/hooks/useClickOutside";
 

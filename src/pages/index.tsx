@@ -1,5 +1,5 @@
-import Header from "@/components/common/header/Header";
-import { checkSignin } from "@/utils/checkSignin";
+import Header from "@/components/page/home/header/Header";
+import { checkSignin } from "@/lib/checkSignin";
 import { GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

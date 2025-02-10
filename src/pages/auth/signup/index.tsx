@@ -5,7 +5,7 @@ import { useRef } from "react";
 import SignForm from "@/components/page/auth/SignForm";
 import isUsedEmail from "@/hooks/isUsedEmail";
 import postNewUser from "@/hooks/postNewUser";
-import { authRedirect } from "@/utils/authRedirect";
+import { authRedirect } from "@/lib/authRedirect";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return await authRedirect(context);
