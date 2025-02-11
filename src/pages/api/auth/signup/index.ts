@@ -12,7 +12,7 @@ export default async function handler(
     case "POST":
       try {
         const newUser = await User.create(req.body);
-        res.status(201).send(newUser.nickname);
+        return res.status(201).send(newUser.nickname);
       } catch (error) {
         res.status(500).json({ message: "Server error", error });
       }
@@ -22,16 +22,9 @@ export default async function handler(
       try {
         const user = await User.findOne(req.query);
         if (user) {
-          return res.status(200).json({
-            isUsed: true,
-            message:
-              "이미 가입된 email입니다. 다른 email로 가입을 진행해 주세요.",
-          });
+          return res.status(409).json({ message: "Conflict" });
         }
-        res.status(200).json({
-          isUsed: false,
-          message: "사용 가능한 email입니다.",
-        });
+        res.status(200).json({ message: "사용 가능한 email입니다." });
       } catch (error) {
         res.status(500).json({ message: "Server error", error });
       }
