@@ -1,6 +1,6 @@
 import baseAxios from "@/lib/axios";
 import { useAuthStore } from "@/store/useAuthStore";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
 // 회원가입 - 이미 사용중인 email인지 확인
@@ -55,17 +55,6 @@ export const usePostSignin = () => {
       alert(
         "아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 확인해 주세요."
       );
-    },
-  });
-};
-
-// 로그인 - 페이지 새로고침 발생 시, Token 유무 확인
-export const useGetNickname = () => {
-  return useQuery({
-    queryKey: ["nickname"],
-    queryFn: async () => {
-      const { data } = await baseAxios.get("/auth");
-      return data;
     },
   });
 };
