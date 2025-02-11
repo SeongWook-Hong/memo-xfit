@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import profilePic from "@/assets/images/basic-profile.png";
-import ProfileToggle from "@/components/common/header/ProfileToggle";
+import ProfileToggle from "@/components/page/home/header/ProfileToggle";
 import { useRef, useState } from "react";
 import useClickOutside from "@/hooks/useClickOutside";
 
@@ -19,9 +19,11 @@ const Header = ({ nickname }: Props) => {
   useClickOutside(profileMenuRef, () => setProfileMenu(false));
   return (
     <>
-      <div className="flex items-center justify-between h-16 bg-[--componentBgColor] px-4">
+      <div className="relative flex items-center justify-between h-16 bg-[--componentBgColor] px-4">
         <div>menu</div>
-        <Link href="/">MEMO-XFIT</Link>
+        <Link href="/" className="absolute left-1/2 transform -translate-x-1/2">
+          MEMO-XFIT
+        </Link>
         <div>
           {nickname ? (
             <div

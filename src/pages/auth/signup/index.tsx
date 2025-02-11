@@ -1,35 +1,26 @@
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useRef } from "react";
 import SignForm from "@/components/page/auth/SignForm";
-import isUsedEmail from "@/hooks/isUsedEmail";
-import postNewUser from "@/hooks/postNewUser";
-import { authRedirect } from "@/utils/authRedirect";
+import { authRedirect } from "@/lib/authRedirect";
+import { useGetUsedEmail, usePostSignup } from "@/hooks/useAuth";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   return await authRedirect(context);
 };
 
 const Signup = () => {
-  const router = useRouter();
+  const { mutate: usedEmail } = useGetUsedEmail();
+  const { mutate: signup } = usePostSignup();
 
   const formRef = useRef({ email: "", nickname: "", password: "" });
 
-  const handleSubmit = async () => {
-    const { isUsed, message } = await isUsedEmail(formRef.current.email);
-    if (!isUsed) {
-      const { data, status } = await postNewUser({ ...formRef.current });
-
-      if (status === 201) {
-        alert(data + "님 환영합니다! 로그인을 진행해주세요.");
-        router.replace("/auth/signin");
-        return;
-      }
-      alert(data.message); // server Error
-    } else {
-      alert(message); // 이미 사용중인 email
-    }
+  const handleSubmit = () => {
+    usedEmail(formRef.current.email, {
+      onSuccess: () => {
+        signup({ ...formRef.current });
+      },
+    });
   };
   return (
     <div className="flex items-center justify-center min-h-screen">
