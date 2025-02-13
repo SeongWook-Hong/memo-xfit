@@ -25,7 +25,6 @@ export const usePostSignup = () => {
       return data;
     },
     onSuccess: (nickname) => {
-      console.log(nickname);
       alert(nickname + "님 환영합니다! 로그인을 진행해 주세요.");
       router.push("/auth/signin");
       return;
