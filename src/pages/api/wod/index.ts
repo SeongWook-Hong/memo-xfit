@@ -9,6 +9,15 @@ export default async function handler(
   await dbConnect();
 
   switch (req.method) {
+    case "GET":
+      try {
+        const wods = await Wod.find();
+        return res.status(200).send(wods);
+      } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+      }
+      break;
+
     case "POST":
       try {
         const newWod = await Wod.create(req.body);

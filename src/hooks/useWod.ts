@@ -1,15 +1,27 @@
 import baseAxios from "@/lib/axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+export const useGetWods = () => {
+  return useQuery({
+    queryKey: ["wods"],
+    queryFn: async () => {
+      const { data } = await baseAxios.get("/wod");
+      return data;
+    },
+  });
+};
 // 새로운 WOD 추가
 export const usePostWod = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: async (formData: object) => {
       const { data } = await baseAxios.post("/wod", formData);
       return data;
     },
     onSuccess: () => {
-      return;
+      alert("새로운 WOD가 추가 되었습니다!");
+      queryClient.invalidateQueries({ queryKey: ["wods"] });
     },
     onError: (error: any) => {
       if (error.status === 400)
