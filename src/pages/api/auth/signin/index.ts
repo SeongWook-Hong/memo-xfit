@@ -17,10 +17,8 @@ export default async function handler(
           password: req.body.password,
         });
         if (!userInfo) {
-          return res.status(200).send({
-            isSuccess: false,
-            message:
-              "아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 확인해 주세요.",
+          return res.status(401).json({
+            message: "not authorized",
           });
         }
         const token = jwt.sign(
@@ -34,9 +32,9 @@ export default async function handler(
         );
         res.setHeader(
           "Set-Cookie",
-          `loginToken=${token}; Path=/; Max-Age=3600 SameSite=Strict`
+          `loginToken=${token}; Path=/; Max-Age=3600; HttpOnly; Secure; SameSite=Strict`
         );
-        res.status(201).send({ data: userInfo.nickname });
+        res.status(201).send(userInfo.nickname);
       } catch (error) {
         res.status(500).json({ message: "Server error", error });
       }
