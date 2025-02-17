@@ -58,7 +58,9 @@ const Header = ({ nickname }: Props) => {
             </div>
           ) : (
             <span className="flex text-sm gap-3">
-              <Link href="/auth/signup">회원가입</Link>
+              <Link href="/auth/signup" className="hidden sm:block">
+                회원가입
+              </Link>
               <Link href="/auth/signin">로그인</Link>
             </span>
           )}
