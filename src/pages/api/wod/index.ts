@@ -11,7 +11,7 @@ export default async function handler(
   switch (req.method) {
     case "GET":
       try {
-        const wods = await Wod.find();
+        const wods = await Wod.find().sort({ date: -1 });
         return res.status(200).send(wods);
       } catch (error) {
         res.status(500).json({ message: "Server error", error });
