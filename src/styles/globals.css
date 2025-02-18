@@ -46,3 +46,18 @@ input {
     outline: none;
   }
 }
+
+/* 크롬, 엣지, 사파리 */
+.overflow-hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* 파이어폭스 */
+.overflow-hidden-scrollbar {
+  scrollbar-width: none;
+}
+
+/* IE, Edge */
+.overflow-hidden-scrollbar {
+  -ms-overflow-style: none;
+}
