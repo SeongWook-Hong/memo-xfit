@@ -5,9 +5,9 @@ interface Props {
 }
 const Contents = ({ wods }: Props) => {
   return (
-    <>
+    <div className="pt-10">
       <WodList wods={wods} />
-    </>
+    </div>
   );
 };
 export default Contents;
