@@ -1,9 +1,14 @@
 import { TWod } from "@/types";
+import { useRouter } from "next/router";
 
 interface Props {
   wods: TWod[];
 }
 const WodList = ({ wods }: Props) => {
+  const router = useRouter();
+  const handleClickWod = (id: string) => {
+    router.push(`/wod/${id}`);
+  };
   return (
     <div className="flex flex-col gap-4">
       <span>Recent WODs</span>
@@ -11,6 +16,7 @@ const WodList = ({ wods }: Props) => {
         {wods.map((wod: TWod) => (
           <li
             key={wod._id}
+            onClick={() => handleClickWod(wod._id)}
             className="flex flex-col gap-4 p-6 rounded-xl bg-[--componentBgColor] w-56 h-56 flex-shrink-0"
           >
             <span className="text-[--orange] font-bold">{wod.date}</span>
