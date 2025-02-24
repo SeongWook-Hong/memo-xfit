@@ -16,7 +16,9 @@ export default function Home({ nickname }: Props) {
   return (
     <div className="text-2xl">
       <Header nickname={nickname} />
-      {isLoading ? <p>Loading...</p> : <Contents wods={wods} />}
+      <div className="max-w-7xl px-5 mx-auto">
+        {isLoading ? <p>Loading...</p> : <Contents wods={wods} />}
+      </div>
     </div>
   );
 }
