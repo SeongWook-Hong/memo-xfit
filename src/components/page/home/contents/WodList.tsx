@@ -12,7 +12,7 @@ const WodList = ({ wods }: Props) => {
   return (
     <div className="flex flex-col gap-4">
       <span>Recent WODs</span>
-      <ul className="flex gap-5 overflow-y-auto custom-scrollbar pb-2">
+      <ul className="flex gap-4 overflow-y-auto custom-scrollbar pb-2">
         {wods.map((wod: TWod) => (
           <li
             key={wod._id}
