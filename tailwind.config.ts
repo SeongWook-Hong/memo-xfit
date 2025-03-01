@@ -10,6 +10,9 @@ export default {
   safelist: ["borderColor", "bg-orange", "bg-disabled"],
   theme: {
     extend: {
+      screens: {
+        xs: "425px",
+      },
       colors: {
         borderColor: "var(--borderColor)",
         orange: "var(--orange)",

@@ -9,7 +9,11 @@ export const checkSignin = async (context: GetServerSidePropsContext) => {
   });
   if (token) {
     const decode = jwt.verify(token, process.env.JWT_SECRET!) as jwt.JwtPayload;
-    return { props: { nickname: decode.nickname } };
+    return {
+      props: {
+        nickname: decode.nickname,
+      },
+    };
   }
   return { props: {} };
 };

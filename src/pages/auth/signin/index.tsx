@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 import SignForm from "@/components/page/auth/SignForm";
-import logoPic from "@/assets/images/logo-curved.png";
+import logoPic from "@/assets/images/logo.png";
 import { usePostSignin } from "@/hooks/useAuth";
 import { authRedirect } from "@/lib/authRedirect";
 
