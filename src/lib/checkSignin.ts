@@ -11,7 +11,7 @@ export const checkSignin = async (context: GetServerSidePropsContext) => {
     const decode = jwt.verify(token, process.env.JWT_SECRET!) as jwt.JwtPayload;
     return {
       props: {
-        userInfo: { userId: decode.userId, nickname: decode.nickname },
+        nickname: decode.nickname,
       },
     };
   }
