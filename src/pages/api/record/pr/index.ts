@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import dbConnect from "@/db/dbConnect";
 import PR from "@/db/models/PR";
+import { TPrRecord } from "@/types";
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,14 +25,43 @@ export default async function handler(
       }
       break;
 
-    case "POST":
+    case "PUT":
       try {
-        const newPR = await PR.create(req.body);
-        return res.status(201).send(newPR);
-      } catch (error: any) {
-        if (error.code === 11000) {
-          return res.status(400).json({ message: "duplicated user", error });
+        const user = await PR.findOne({ userId: userId });
+        if (user === null) {
+          const newPR = await PR.create({
+            userId: userId,
+            records: [req.body],
+          });
+          return res.status(201).send(newPR);
         }
+        const isExist = user.records.find(
+          (record: TPrRecord) => record.movement === req.body.movement
+        );
+        if (isExist) {
+          const { _id, ...rest } = isExist._doc;
+          const notPR = JSON.stringify(rest) === JSON.stringify(req.body);
+          if (notPR) return res.status(409).send("Same record");
+
+          const updatePR = await PR.updateOne(
+            { userId: userId, "records.movement": req.body.movement },
+            {
+              $set: {
+                "records.$.record": req.body.record,
+                "records.$.date": req.body.date,
+              },
+            }
+          );
+          return res.status(200).send(updatePR);
+        }
+        const uploadPR = await PR.updateOne(
+          { userId: userId },
+          {
+            $push: { records: req.body },
+          }
+        );
+        return res.status(200).send(uploadPR);
+      } catch (error) {
         res.status(500).json({ message: "Server error", error });
       }
       break;
