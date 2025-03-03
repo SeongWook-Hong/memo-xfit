@@ -1,5 +1,6 @@
 import baseAxios from "@/lib/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 export const useGetPR = () => {
   return useQuery({
@@ -12,21 +13,22 @@ export const useGetPR = () => {
   });
 };
 
-export const usePostPR = () => {
+export const usePutPR = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (formData: object) => {
-      const { data } = await baseAxios.post("/record/pr", formData);
-      return data;
+      const data = await baseAxios.put("/record/pr", formData);
+      return data.status;
     },
-    onSuccess: () => {
-      alert("새로운 PR기록이 추가 되었습니다!");
+    onSuccess: (res) => {
+      if (res === 201) alert("새로운 PR기록이 추가 되었습니다!");
+      if (res === 200) alert("PR기록이 수정되었습니다!");
+
       queryClient.invalidateQueries({ queryKey: ["pr"] });
     },
-    onError: (error: any) => {
-      if (error.status === 400)
-        alert("이미 PR기록을 생성하였습니다. 삭제 후 다시 진행해주세요.");
+    onError: (error: AxiosError) => {
+      if (error.response?.status === 409) alert("이전과 동일한 PR기록입니다.");
       else alert("서버와 연결이 끊겼습니다. 잠시 후, 다시 시도해 주세요.");
     },
   });
