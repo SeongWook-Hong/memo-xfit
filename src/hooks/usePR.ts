@@ -23,7 +23,7 @@ export const usePutPR = () => {
     },
     onSuccess: (res) => {
       if (res === 201) alert("새로운 PR기록이 추가 되었습니다!");
-      if (res === 200) alert("PR기록이 수정되었습니다!");
+      else alert("PR기록이 수정되었습니다!");
 
       queryClient.invalidateQueries({ queryKey: ["pr"] });
     },
